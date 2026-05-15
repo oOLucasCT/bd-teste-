@@ -55,8 +55,19 @@ CREATE TABLE Restaurantes(
   id_restaurantes INTEGER PRIMARY KEY AUTOINCREMENT,
   nome_restaurante VARCHAR(100) not NULL,
   nota FLOAT,
-  endereço VARCHAR(100) NOT NULL
+  endereco VARCHAR(100) NOT NULL
   );
+  
+  CREATE TABLE Entregador(
+    id_entregador INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome_entregador TEXT,
+    veiculo TEXT
+    );
+    
+    CREATE TABLE Pagamento(
+      id_pagamento INTEGER PRIMARY KEY AUTOINCREMENT,
+      forma_pagamento TEXT
+      );
   
   CREATE TABLE Pedidos(
     id_pedidos INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -65,12 +76,23 @@ CREATE TABLE Restaurantes(
     qtd_pedidos INT,
     mais_pedido VARCHAR(100) not NULL,
     FOREIGN KEY (id_clientes) REFERENCES Clientes(id_clientes),
-    FOREIGN Key (id_restaurantes) REFERENCES Restaurantes(id_restaurantes)
+    FOREIGN Key (id_restaurantes) REFERENCES Restaurantes(id_restaurantes),
+    FOREIGN KEY (id_entregador) REFERENCES Entregador(id_entreador),
+    FOREIGN Key (id_pagamento) REFERENCES Pagamento(id_pagamento)
     );
     
-    INSERT INTO Clientes VALUES(1,'Maria Joana', 50, 'mariajoana123@gmail.com');
-    INSERT INTO Clientes VALUES(2,'João Maria', 44, 'JM@gmail.com');
+    INSERT INTO Clientes (nome, idade, email) VALUES
+    ('Maria Joana', 50, 'mariajoana123@gmail.com'),
+    ('Ana Joana', 40, 'joana3@gmail.com');
     
-    INSERT INTO Pedidos VALUES(1, 2, 1, 'salada', 'fritas');
+    INSERT INTO Restaurantes  (nome_restaurante, nota, endereco) VALUES
+    ('pao na chapa', 4.5, 'Rua Cinco, bairro: venda nova, n°222'),
+    ('chapação', 3.5, 'Rua Cinco, bairro: venda nova, n°222');
     
-    SELECT * FROM Pedidos;
+    INSERT INTO Pedidos (id_clientes, id_restaurantes, qtd_pedidos, mais_pedido) VALUES
+    (2, 1, 33, 'fritas'),
+    (1, 2, 8, 'refrigerante');
+    
+    UPDATE Clientes SET idade= '30' WHERE id_clientes = 2;
+    
+    SELECT * FROM Clientes;
